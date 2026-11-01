@@ -1,0 +1,18 @@
+/**
+ * OptiGuide - Shared Status and Error Constants
+ */
+
+export const SERVICE_NAME = 'optiguide-api';
+export const API_VERSION_V1 = '1.0.0';
+
+export const ERROR_CODES = {
+  VALIDATION_ERROR: 'VALIDATION_ERROR',
+  NOT_FOUND: 'NOT_FOUND',
+  DATABASE_DISCONNECTED: 'DATABASE_DISCONNECTED',
+  INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
+  BAD_REQUEST: 'BAD_REQUEST',
+  UNAUTHORIZED: 'UNAUTHORIZED',
+  SERVICE_UNAVAILABLE: 'SERVICE_UNAVAILABLE',
+} as const;
+
+export type ErrorCodeKey = keyof typeof ERROR_CODES;
