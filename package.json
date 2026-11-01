@@ -1,0 +1,29 @@
+{
+  "name": "optiguide-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OptiGuide: Cross-platform preliminary vision screening and eyewear guidance platform",
+  "workspaces": [
+    "apps/*",
+    "shared"
+  ],
+  "scripts": {
+    "frontend:start": "npm --workspace=apps/mobile run start",
+    "frontend:web": "npm --workspace=apps/mobile run web",
+    "frontend:android": "npm --workspace=apps/mobile run android",
+    "frontend:ios": "npm --workspace=apps/mobile run ios",
+    "frontend:test": "npm --workspace=apps/mobile run test",
+    "frontend:lint": "npm --workspace=apps/mobile run lint",
+    "frontend:build:web": "npm --workspace=apps/mobile run build:web",
+    "backend:dev": "python -m uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000",
+    "backend:test": "pytest backend/tests -v",
+    "backend:lint": "ruff check backend",
+    "test": "npm run frontend:test",
+    "lint": "npm run frontend:lint"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  },
+  "author": "OptiGuide Team",
+  "license": "UNLICENSED"
+}
