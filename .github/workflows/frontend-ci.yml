@@ -1,0 +1,29 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ main, feature/* ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  frontend-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck Mobile
+        run: npm --workspace=apps/mobile run typecheck
+
+      - name: Test Mobile
+        run: npm --workspace=apps/mobile run test -- --ci
+
+      - name: Build Web Bundle
+        run: npm --workspace=apps/mobile run build:web

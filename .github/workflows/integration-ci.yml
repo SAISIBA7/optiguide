@@ -1,0 +1,34 @@
+name: End-to-End Integration CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  e2e-contracts-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          pip install -r backend/requirements.txt
+
+      - name: Verify Backend health integration
+        run: |
+          python -m pytest backend/tests/test_health.py -v
+
+      - name: Verify Shared Contracts parity
+        run: |
+          npm --workspace=apps/mobile run test -- --testPathPattern=apiClient

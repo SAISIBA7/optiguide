@@ -33,7 +33,7 @@ def test_v1_db_ping(client):
 
 def test_v1_health_degraded_when_db_down(client):
     with patch(
-        "backend.app.api.v1.endpoints.health.check_db_connectivity",
+        "backend.app.api.v1.health.check_db_connectivity",
         return_value=(False, None, "sqlite", "Connection timeout"),
     ):
         response = client.get("/api/v1/health")
@@ -45,7 +45,7 @@ def test_v1_health_degraded_when_db_down(client):
 
 def test_v1_db_health_error_when_db_down(client):
     with patch(
-        "backend.app.api.v1.endpoints.health.check_db_connectivity",
+        "backend.app.api.v1.health.check_db_connectivity",
         return_value=(False, None, "sqlite", "Fatal database error"),
     ):
         response = client.get("/api/v1/health/db")
